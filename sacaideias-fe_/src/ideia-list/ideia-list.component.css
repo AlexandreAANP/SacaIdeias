@@ -1,0 +1,38 @@
+/* --- Desktop Layout (Default Side-by-Side) --- */
+.app-layout {
+  display: flex;
+  flex-direction: row; /* Sidebar on left, form on right */
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+}
+
+app-ideia-list {
+  flex: 0 0 320px;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+h1 {
+  margin-top: 0;
+  color: #222;
+  font-size: 24px;
+}
+
+/* --- Mobile Layout (Screens 768px wide or smaller) --- */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column-reverse; /* Flips order: Form (main-content) comes first, list goes below */
+    margin: 20px auto;
+    gap: 20px;
+  }
+
+  app-ideia-list {
+    width: 100%; /* Makes the list take full width on mobile */
+  }
+}

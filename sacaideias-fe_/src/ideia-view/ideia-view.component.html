@@ -1,0 +1,19 @@
+<div class="view-container">
+  <div class="header-actions">
+    <button (click)="toggleMode()" class="toggle-btn">
+      {{ isMarkdownMode ? 'Switch to Normal Text' : 'Switch to Markdown Preview' }}
+    </button>
+    <button (click)="onBack()" class="back-btn">Back to Form</button>
+  </div>
+
+  <div class="content-box">
+    <!-- Render as Normal Raw Text -->
+    <div *ngIf="!isMarkdownMode" class="normal-text">
+      <pre>{{ ideiaContent }}</pre>
+    </div>
+
+    <!-- Render as Real Visual Markdown HTML -->
+    <div *ngIf="isMarkdownMode" class="markdown-preview" [innerHTML]="renderedMarkdown">
+    </div>
+  </div>
+</div>

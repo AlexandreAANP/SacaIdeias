@@ -1,0 +1,20 @@
+<div class="app-layout">
+  <!-- Main Content Area: Switches between Form and Markdown View -->
+  <main class="main-content">
+    <h1>Painel de Ideias</h1>
+
+    <!-- Show View Component if an idea is selected, otherwise show the entry Form -->
+    <app-ideia-view 
+      *ngIf="selectedIdeia; else formTemplate" 
+      [ideiaContent]="selectedIdeia" 
+      (closeView)="closeView()">
+    </app-ideia-view>
+
+    <ng-template #formTemplate>
+      <app-ideia (ideiaSubmitted)="addIdeia($event)"></app-ideia>
+    </ng-template>
+  </main>
+
+  <!-- Left Sidebar List -->
+  <app-ideia-list [ideias]="ideias" (ideaSelected)="viewIdeia($event)"></app-ideia-list>
+</div>

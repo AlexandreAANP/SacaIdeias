@@ -1,0 +1,17 @@
+<div class="idea-container">
+  <h2>Write your idea</h2>
+  
+  <form (submit)="onSubmit()">
+    <textarea 
+      [(ngModel)]="ideiaText" 
+      name="ideia" 
+      placeholder="Type your brilliant idea here..." 
+      rows="6"
+      cols="50">
+    </textarea>
+    
+    <div>
+      <button type="submit">Submit Idea</button>
+    </div>
+  </form>
+</div>

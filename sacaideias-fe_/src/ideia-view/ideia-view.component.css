@@ -1,0 +1,76 @@
+.view-container {
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.toggle-btn {
+  background-color: #f0f0f0;
+}
+
+.back-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.content-box {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  padding: 15px 20px;
+  min-height: 120px;
+  color: #333;
+}
+
+.normal-text pre {
+  white-space: pre-wrap;
+  font-family: monospace;
+  margin: 0;
+}
+
+/* Styling for rendered Markdown elements */
+.markdown-preview h1, 
+.markdown-preview h2, 
+.markdown-preview h3 {
+  margin-top: 0;
+  color: #111;
+}
+
+.markdown-preview code {
+  background-color: #f6f8fa;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 85%;
+}
+
+.markdown-preview pre code {
+  display: block;
+  padding: 10px;
+  background-color: #f6f8fa;
+  overflow-x: auto;
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid #dfe2e5;
+  color: #6a737d;
+  padding-left: 15px;
+  margin-left: 0;
+}

@@ -1,0 +1,11 @@
+<aside class="sidebar">
+  <h3>Saved Ideas</h3>
+  
+  <p *ngIf="ideias.length === 0" class="empty-text">No ideas submitted yet.</p>
+  
+  <ul *ngIf="ideias.length > 0">
+    <li *ngFor="let ideia of ideias" (click)="selectIdea(ideia)" class="idea-item">
+      {{ ideia }}
+    </li>
+  </ul>
+</aside>
