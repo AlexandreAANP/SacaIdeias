@@ -7,13 +7,59 @@
   </div>
 
   <div class="content-box">
-    <!-- Render as Normal Raw Text -->
-    <div *ngIf="!isMarkdownMode" class="normal-text">
-      <pre>{{ ideiaContent }}</pre>
-    </div>
+    <section class="idea-section title-section">
+      <div class="field-label">Title</div>
+      <h2 class="idea-title">{{ ideiaContent.title || 'Untitled idea' }}</h2>
+    </section>
 
-    <!-- Render as Real Visual Markdown HTML -->
-    <div *ngIf="isMarkdownMode" class="markdown-preview" [innerHTML]="renderedMarkdown">
-    </div>
+    <section class="idea-section original-section">
+      <div class="field-label">Original Idea</div>
+      <p class="idea-original">{{ ideiaContent.originalIdeia }}</p>
+    </section>
+
+    <section class="idea-section content-section">
+      <div class="field-label">Content</div>
+
+      <!-- Render generated content as raw text -->
+      <div *ngIf="!isMarkdownMode" class="normal-text">
+        <pre>{{ ideiaContent.content }}</pre>
+      </div>
+
+      <!-- Render generated content as markdown HTML -->
+      <div *ngIf="isMarkdownMode" class="markdown-preview" [innerHTML]="renderedMarkdown"></div>
+    </section>
+
+    <section class="idea-section chat-section">
+      <div class="field-label">Conversation</div>
+
+      <div class="chat-thread" *ngIf="chatMessages.length > 0">
+        <div
+          class="chat-message"
+          *ngFor="let message of chatMessages"
+          [class.user-message]="message.role === 'user'"
+          [class.assistant-message]="message.role === 'assistant'"
+        >
+          <span class="chat-role">{{ message.role === 'user' ? 'You' : 'Agent' }}</span>
+          <div *ngIf="message.role === 'user'" class="chat-content">{{ message.content }}</div>
+          <div *ngIf="message.role === 'assistant'" class="chat-content markdown-preview" [innerHTML]="renderMarkdown(message.content)"></div>
+        </div>
+      </div>
+
+      <form class="chat-input-row" (ngSubmit)="sendMessage()">
+        <label class="sr-only" for="userMessageInput">Message</label>
+        <input
+          type="text"
+          id="userMessageInput"
+          name="userMessage"
+          [(ngModel)]="userMessage"
+          class="chat-input"
+          placeholder="Send a message to continue the conversation"
+          [disabled]="isSending"
+        />
+        <button type="submit" class="send-btn" [disabled]="isSending || !userMessage.trim()">
+          {{ isSending ? 'Sending...' : 'Send' }}
+        </button>
+      </form>
+    </section>
   </div>
 </div>

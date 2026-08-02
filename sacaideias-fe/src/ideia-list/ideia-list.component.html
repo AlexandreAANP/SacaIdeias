@@ -1,11 +1,23 @@
 <aside class="sidebar">
-  <h3>Saved Ideas</h3>
-  
+  <div class="sidebar-header">
+    <p class="eyebrow">Library</p>
+    <h3>Saved Ideas</h3>
+    <p class="sidebar-description">Pick a saved idea to revisit the generated analysis and continue the conversation.</p>
+  </div>
+
   <p *ngIf="ideias.length === 0" class="empty-text">No ideas submitted yet.</p>
-  
-  <ul *ngIf="ideias.length > 0">
-    <li *ngFor="let ideia of ideias" (click)="selectIdea(ideia)" class="idea-item">
-      {{ ideia }}
+
+  <ul *ngIf="ideias.length > 0" class="idea-list">
+    <li *ngFor="let ideia of ideias" class="idea-item">
+      <button type="button" class="idea-card" (click)="selectIdea(ideia)">
+        <div class="idea-card-header">
+          <span class="idea-badge">Idea</span>
+          <span class="idea-chevron">›</span>
+        </div>
+
+        <h4 class="idea-title">{{ (ideia.title || 'Untitled idea') | slice:0:40 }}...</h4>
+        <p class="idea-preview">{{ (ideia.originalIdeia || '') | slice:0:20 }}...</p>
+      </button>
     </li>
   </ul>
 </aside>

@@ -1,0 +1,24 @@
+@if (isOpen$ | async) {
+  <div class="modal-backdrop">
+    <dialog class="modal-panel" aria-labelledby="loginModalTitle" open>
+      <button type="button" class="close-btn" (click)="close()" aria-label="Close login dialog">
+        ×
+      </button>
+
+      <p class="eyebrow">Authentication required</p>
+      <h2 id="loginModalTitle">Login to continue</h2>
+
+      <div class="google-login-slot">
+        <div #googleLoginButton></div>
+      </div>
+
+      @if (!isGoogleReady) {
+        <p class="status">Loading Google sign-in...</p>
+      }
+
+      @if (isLoggingIn) {
+        <p class="status">Signing you in...</p>
+      }
+    </dialog>
+  </div>
+}

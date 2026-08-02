@@ -1,0 +1,22 @@
+<header class="navbar">
+  <div class="brand">
+    <div class="logo-slot" aria-hidden="true">
+      <img src="assets/logo/sacaIdeiasLogo.png" alt="SacaIdeias logo">
+    </div>
+  </div>
+
+  <ng-container *ngIf="currentUser$ | async as currentUser; else loginButton">
+    <div class="user-chip">
+      <img class="user-avatar" [src]="currentUser.picture || 'assets/logo/favicon.ico'" [alt]="currentUser.name || currentUser.email" />
+      <div class="user-meta">
+        <span class="user-name">{{ currentUser.name || 'Google User' }}</span>
+        <span class="user-email">{{ currentUser.email }}</span>
+      </div>
+      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </ng-container>
+
+  <ng-template #loginButton>
+    <button type="button" class="login-btn" (click)="login()">Login with Google</button>
+  </ng-template>
+</header>

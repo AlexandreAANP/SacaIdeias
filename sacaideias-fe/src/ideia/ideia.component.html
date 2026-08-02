@@ -1,17 +1,22 @@
 <div class="idea-container">
-  <h2>Write your idea</h2>
-  
-  <form (submit)="onSubmit()">
-    <textarea 
-      [(ngModel)]="ideiaText" 
-      name="ideia" 
-      placeholder="Type your brilliant idea here..." 
-      rows="6"
-      cols="50">
+  <div class="form-header">
+    <p class="eyebrow">Idea studio</p>
+    <h2>Write your idea</h2>
+    <p class="subtitle">Describe the concept you want to explore and the agent will turn it into a structured plan.</p>
+  </div>
+
+  <form (submit)="onSubmit()" class="idea-form">
+    <label for="ideaText" class="sr-only">Idea description</label>
+    <textarea
+      id="ideaText"
+      [(ngModel)]="ideiaText"
+      name="ideia"
+      placeholder="Type your brilliant idea here..."
+      rows="7">
     </textarea>
-    
-    <div>
-      <button type="submit">Submit Idea</button>
+
+    <div class="form-actions">
+      <button type="submit">Generate idea</button>
     </div>
   </form>
 </div>

@@ -1,0 +1,92 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 32, 51, 0.5);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-panel {
+  position: relative;
+  width: min(100%, 440px);
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid #dbe3ee;
+  box-shadow: 0 24px 60px rgba(16, 24, 40, 0.2);
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 999px;
+  background: #f3f6fb;
+  color: #122033;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+h2 {
+  margin: 0;
+  color: #122033;
+  font-size: 1.6rem;
+}
+
+.description {
+  margin: 12px 0 20px;
+  color: #5f6b7a;
+  line-height: 1.6;
+}
+
+.google-login-slot {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 58px;
+}
+
+.google-button-target {
+  min-height: 44px;
+}
+
+.fallback-google-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 11px 18px;
+  background: #122033;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(18, 32, 51, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.fallback-google-btn:hover {
+  transform: translateY(-1px);
+  background: #1a2c44;
+  box-shadow: 0 12px 24px rgba(18, 32, 51, 0.24);
+}
+
+.status {
+  margin: 14px 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}

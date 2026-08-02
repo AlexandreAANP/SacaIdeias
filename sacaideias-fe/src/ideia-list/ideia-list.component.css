@@ -1,38 +1,124 @@
-/* --- Desktop Layout (Default Side-by-Side) --- */
-.app-layout {
+.sidebar {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.06);
+}
+
+.sidebar-header {
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.sidebar h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #122033;
+}
+
+.sidebar-description {
+  margin: 8px 0 0;
+  color: #5f6b7a;
+  line-height: 1.5;
+  font-size: 0.94rem;
+}
+
+.idea-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.idea-item {
+  margin: 0;
+}
+
+.idea-card {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: 1px solid #dce4ef;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 14px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+}
+
+.idea-card:hover {
+  transform: translateY(-2px);
+  border-color: #b9c7da;
+  box-shadow: 0 14px 30px rgba(16, 24, 40, 0.1);
+}
+
+.idea-card:focus-visible {
+  outline: 3px solid rgba(31, 111, 235, 0.25);
+  outline-offset: 2px;
+}
+
+.idea-card-header {
   display: flex;
-  flex-direction: row; /* Sidebar on left, form on right */
-  align-items: flex-start;
-  gap: 40px;
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 0 20px;
-  font-family: Arial, sans-serif;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-app-ideia-list {
-  flex: 0 0 320px;
+.idea-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #eef6ff;
+  color: #0f4fb8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.main-content {
-  flex-grow: 1;
+.idea-chevron {
+  color: #94a3b8;
+  font-size: 1.4rem;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
-h1 {
-  margin-top: 0;
-  color: #222;
-  font-size: 24px;
+.idea-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: #122033;
 }
 
-/* --- Mobile Layout (Screens 768px wide or smaller) --- */
-@media (max-width: 768px) {
-  .app-layout {
-    flex-direction: column-reverse; /* Flips order: Form (main-content) comes first, list goes below */
-    margin: 20px auto;
-    gap: 20px;
-  }
+.idea-preview {
+  margin: 8px 0 0;
+  color: #5f6b7a;
+  line-height: 1.55;
+  font-size: 0.94rem;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-  app-ideia-list {
-    width: 100%; /* Makes the list take full width on mobile */
-  }
+.empty-text {
+  margin: 0;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f7f9fc;
+  color: #6b7280;
+  border: 1px dashed #cfd8e3;
 }

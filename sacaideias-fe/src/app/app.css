@@ -1,19 +1,18 @@
-/* --- Mobile Layout (Default) --- */
 .app-layout {
   display: flex;
-  flex-direction: column; /* Stacked: Form on top, list on bottom */
+  flex-direction: column;
   gap: 20px;
-  max-width: 600px;
-  margin: 20px auto;
+  max-width: 1120px;
+  margin: 0 auto 32px;
   padding: 0 20px;
   font-family: Arial, sans-serif;
 }
 
-app-ideia-list {
+.main-content {
   width: 100%;
 }
 
-.main-content {
+app-ideia-list {
   width: 100%;
 }
 
@@ -23,19 +22,16 @@ h1 {
   font-size: 24px;
 }
 
-/* --- Desktop Layout (Screens wider than 768px) --- */
 @media (min-width: 768px) {
   .app-layout {
-    flex-direction: row; /* Side-by-side: List on left, form on right */
-    max-width: 1000px;
-    margin: 50px auto;
+    flex-direction: row;
     align-items: flex-start;
     gap: 40px;
   }
 
   app-ideia-list {
-    flex: 0 0 320px; /* Fixed width sidebar on the left */
-    order: -1; /* Forces the list to display on the left side */
+    flex: 0 0 340px;
+    order: -1;
   }
 
   .main-content {
