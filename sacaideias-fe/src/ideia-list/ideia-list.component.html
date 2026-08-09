@@ -5,10 +5,10 @@
     <p class="sidebar-description">Pick a saved idea to revisit the generated analysis and continue the conversation.</p>
   </div>
 
-  <p *ngIf="ideias.length === 0" class="empty-text">No ideas submitted yet.</p>
+  <p *ngIf="ideias().length === 0" class="empty-text">No ideas submitted yet.</p>
 
-  <ul *ngIf="ideias.length > 0" class="idea-list">
-    <li *ngFor="let ideia of ideias" class="idea-item">
+  <ul *ngIf="ideias().length > 0" class="idea-list">
+    <li *ngFor="let ideia of ideias()" class="idea-item">
       <button type="button" class="idea-card" (click)="selectIdea(ideia)">
         <div class="idea-card-header">
           <span class="idea-badge">Idea</span>

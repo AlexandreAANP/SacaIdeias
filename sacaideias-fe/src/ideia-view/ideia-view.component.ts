@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output, EventEmitter, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { marked } from 'marked'; // Import marked parser
@@ -23,8 +23,13 @@ export class IdeiaViewComponent {
   private readonly aiService = inject(AIService);
   private readonly cdr = inject(ChangeDetectorRef);
 
-  @Input() ideiaContent: IdeiaImproved = { originalIdeia: '', title: '', content: '', conversationId: '' };
-  @Output() closeView = new EventEmitter<void>();
+  readonly ideiaContent = input<IdeiaImproved>({
+    originalIdeia: '',
+    title: '',
+    content: '',
+    conversationId: ''
+  });
+  readonly closeView = output<void>();
 
   isMarkdownMode: boolean = true;
   userMessage: string = '';
@@ -47,7 +52,7 @@ export class IdeiaViewComponent {
       return;
     }
 
-    const activeConversationId = this.conversationId || this.ideiaContent.conversationId || '';
+    const activeConversationId = this.conversationId || this.ideiaContent().conversationId || '';
 
     if (!activeConversationId) {
       return;
@@ -77,7 +82,7 @@ export class IdeiaViewComponent {
 
   // Parses raw markdown string into safe HTML using marked
   get renderedMarkdown(): string {
-    return marked.parse(this.ideiaContent.content) as string;
+    return marked.parse(this.ideiaContent().content) as string;
   }
 
   renderMarkdown(content: string): string {

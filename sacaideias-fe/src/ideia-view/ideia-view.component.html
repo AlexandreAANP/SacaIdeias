@@ -9,12 +9,12 @@
   <div class="content-box">
     <section class="idea-section title-section">
       <div class="field-label">Title</div>
-      <h2 class="idea-title">{{ ideiaContent.title || 'Untitled idea' }}</h2>
+      <h2 class="idea-title">{{ ideiaContent().title || 'Untitled idea' }}</h2>
     </section>
 
     <section class="idea-section original-section">
       <div class="field-label">Original Idea</div>
-      <p class="idea-original">{{ ideiaContent.originalIdeia }}</p>
+      <p class="idea-original">{{ ideiaContent().originalIdeia }}</p>
     </section>
 
     <section class="idea-section content-section">
@@ -22,7 +22,7 @@
 
       <!-- Render generated content as raw text -->
       <div *ngIf="!isMarkdownMode" class="normal-text">
-        <pre>{{ ideiaContent.content }}</pre>
+        <pre>{{ ideiaContent().content }}</pre>
       </div>
 
       <!-- Render generated content as markdown HTML -->

@@ -9,14 +9,18 @@
     <app-ideia-view 
       *ngIf="selectedIdeia; else formTemplate" 
       [ideiaContent]="selectedIdeia" 
-      (closeView)="closeView()">
+      (closeView)="closeView()"
+      >
     </app-ideia-view>
 
     <ng-template #formTemplate>
-      <app-ideia (ideiaSubmitted)="addIdeia($event)"></app-ideia>
+      <app-ideia (ideiaSubmitted)="onAddIdeia($event)"></app-ideia>
     </ng-template>
   </main>
 
   <!-- Left Sidebar List -->
-  <app-ideia-list [ideias]="ideias" (ideaSelected)="viewIdeia($event)"></app-ideia-list>
+  <app-ideia-list 
+    [ideias]="ideias()"
+    (ideiaSelected)="viewIdeia($event)">
+  </app-ideia-list>
 </div>

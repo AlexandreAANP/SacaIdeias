@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
-import { IdeiaResponse } from "../models/ideia-response.model";
+import { ConversationsResponse, IdeiaResponse } from "../models/ideia-response.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,15 @@ export class AIService {
           conversation_id: conversationId,
           message: userMessage,
         }, { withCredentials: true })
+      );
+    }
+
+    public async getConversations(): Promise<ConversationsResponse> {
+      return firstValueFrom(
+        this.http.get<ConversationsResponse>(
+          `${this.backendUri}/api/v1/conversations`,
+          { withCredentials: true },
+        ),
       );
     }
 }

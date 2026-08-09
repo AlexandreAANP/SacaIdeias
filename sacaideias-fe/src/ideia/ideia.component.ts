@@ -1,8 +1,8 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AIService } from '../core/services/ai.service';
-import { IdeiaImproved, IdeiaResponse } from '../core/models/ideia-response.model';
+import { IdeiaImproved } from '../core/models/ideia-response.model';
 
 @Component({
   selector: 'app-ideia',
@@ -16,7 +16,7 @@ export class IdeiaComponent {
   
   ideiaText: string = '';
   
-  @Output() ideiaSubmitted = new EventEmitter<IdeiaImproved>();
+  readonly ideiaSubmitted = output<IdeiaImproved>();
 
   async onSubmit() {
     if (this.ideiaText.trim()) {

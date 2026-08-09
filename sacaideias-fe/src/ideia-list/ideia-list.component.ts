@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IdeiaImproved } from '../core/models/ideia-response.model';
 
@@ -10,10 +10,12 @@ import { IdeiaImproved } from '../core/models/ideia-response.model';
   styleUrls: ['./ideia-list.component.css']
 })
 export class IdeiaListComponent {
-  @Input() ideias: IdeiaImproved[] = [];
-  @Output() ideaSelected = new EventEmitter<IdeiaImproved>();
+  readonly ideias = input<IdeiaImproved[]>([]);
+  readonly ideiaSelected = output<IdeiaImproved | null>();
 
   selectIdea(ideia: IdeiaImproved) {
-    this.ideaSelected.emit(ideia);
+    this.ideiaSelected.emit(ideia);
   }
 }
+
+
