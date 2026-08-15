@@ -2,15 +2,17 @@
   background: linear-gradient(180deg, #fbfcfe 0%, #f3f6fb 100%);
   border: 1px solid #dbe3ee;
   border-radius: 16px;
-  padding: 24px;
   box-sizing: border-box;
+  min-height: calc(100dvh - 120px);
+  overflow-x: hidden;
+  display: flex;
 }
 
 .header-actions {
   display: flex;
-  gap: 10px;
-  margin-bottom: 18px;
+  justify-content: flex-end;
   flex-wrap: wrap;
+  gap: 5px;
 }
 
 button {
@@ -21,15 +23,17 @@ button {
   border: 1px solid #ccc;
 }
 
-.toggle-btn {
-  background-color: #ffffff;
-  border-color: #d0d7de;
+.back-btn {
+  border: 1px solid #1459c5;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #1f6feb 0%, #1459c5 100%);
+  color: #ffffff;
+  font-weight: 700;
 }
 
-.back-btn {
-  background-color: #c53030;
-  color: white;
-  border: none;
+
+.back-btn:hover {
+  filter: brightness(1.04);
 }
 
 .content-box {
@@ -38,11 +42,13 @@ button {
   border-radius: 16px;
   padding: 18px;
   min-height: 120px;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
   color: #333;
   display: grid;
+  flex: 1;
   gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .idea-section {
@@ -85,19 +91,57 @@ button {
   color: #122033;
 }
 
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+
+.idea-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.idea-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #eef6ff;
+  color: #0f4fb8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tag-color-0 {
+  color: #0f4fb8;
+  background: #eef6ff;
+}
+
+.tag-color-1 {
+  color: #0f766e;
+  background: #ecfdf5;
+}
+
+.tag-color-2 {
+  color: #9a3412;
+  background: #fff7ed;
+}
+
 .idea-original {
   margin: 0;
   white-space: pre-wrap;
   line-height: 1.6;
   color: #2b3645;
-}
-
-.normal-text pre {
-  white-space: pre-wrap;
-  font-family: monospace;
-  margin: 0;
-  line-height: 1.65;
-  color: #243142;
+  overflow-wrap: anywhere;
 }
 
 .chat-thread {
@@ -137,6 +181,7 @@ button {
   white-space: pre-wrap;
   line-height: 1.6;
   color: #223042;
+  overflow-wrap: anywhere;
 }
 
 .chat-content.markdown-preview {
@@ -170,6 +215,7 @@ button {
   font-size: 14px;
   outline: none;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .chat-input:focus {
@@ -189,7 +235,6 @@ button {
   cursor: not-allowed;
 }
 
-/* Styling for rendered Markdown elements */
 .markdown-preview h1, 
 .markdown-preview h2, 
 .markdown-preview h3 {
@@ -210,6 +255,52 @@ button {
   padding: 10px;
   background-color: #f6f8fa;
   overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  .view-container {
+    padding: 0;
+  }
+
+  .header-actions {
+    justify-content: right;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .header-actions button {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+
+  .title-row {
+    flex-direction: column;
+  }
+
+  .idea-tags {
+    justify-content: flex-start;
+  }
+
+  .idea-title,
+  .markdown-preview,
+  .chat-content {
+    overflow-wrap: anywhere;
+  }
+
+  .markdown-preview pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .chat-input-row {
+    flex-wrap: wrap;
+  }
+
+  .chat-input,
+  .send-btn {
+    width: 100%;
+  }
 }
 
 .markdown-preview blockquote {

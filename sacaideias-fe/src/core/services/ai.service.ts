@@ -28,10 +28,23 @@ export class AIService {
       );
     }
 
-    public async getConversations(): Promise<ConversationsResponse> {
+    public async getConversations(
+      offset = 0,
+      limit = 3,
+      orderBy: 'updated_at' | 'created_at' = 'updated_at',
+    ): Promise<ConversationsResponse> {
       return firstValueFrom(
         this.http.get<ConversationsResponse>(
-          `${this.backendUri}/api/v1/conversations`,
+          `${this.backendUri}/api/v1/conversations?offset=${offset}&limit=${limit}&order_by=${orderBy}&order_direction=desc`,
+          { withCredentials: true },
+        ),
+      );
+    }
+
+    public async deleteConversation(conversationId: string): Promise<void> {
+      await firstValueFrom(
+        this.http.delete<void>(
+          `${this.backendUri}/api/v1/conversations/${encodeURIComponent(conversationId)}`,
           { withCredentials: true },
         ),
       );

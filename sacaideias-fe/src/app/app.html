@@ -10,6 +10,7 @@
       *ngIf="selectedIdeia; else formTemplate" 
       [ideiaContent]="selectedIdeia" 
       (closeView)="closeView()"
+      (deleteRequested)="requestDeleteIdea($event)"
       >
     </app-ideia-view>
 
@@ -21,6 +22,22 @@
   <!-- Left Sidebar List -->
   <app-ideia-list 
     [ideias]="ideias()"
-    (ideiaSelected)="viewIdeia($event)">
+    [hasMore]="hasMoreIdeas()"
+    [isLoading]="isLoadingIdeas()"
+    [sortBy]="ideaSort()"
+    (ideiaSelected)="viewIdeia($event)"
+    (loadMore)="loadMoreIdeas()"
+    (sortChanged)="changeIdeaSort($event)"
+    (deleteRequested)="requestDeleteIdea($event)"
+  >
   </app-ideia-list>
 </div>
+
+@if (ideiaToDelete(); as ideia) {
+  <app-confirm-delete-modal
+    [ideaTitle]="ideia.title || 'Untitled idea'"
+    [isDeleting]="isDeletingIdea()"
+    (confirmed)="confirmDeleteIdea()"
+    (cancelled)="cancelDeleteIdea()"
+  />
+}

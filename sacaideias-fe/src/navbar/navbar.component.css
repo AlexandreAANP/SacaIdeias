@@ -151,25 +151,30 @@
 
 @media (max-width: 640px) {
   .navbar {
-    padding: 14px 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
+    padding: 12px 14px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    text-align: left;
   }
 
   .brand {
-    justify-content: center;
+    flex-shrink: 0;
   }
 
-  .login-btn {
-    width: 100%;
+  .navbar app-google-login-button {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    max-width: 260px;
   }
 
   .user-chip {
-    width: 100%;
-    border-radius: 20px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    border-radius: 999px;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .user-meta {
@@ -177,6 +182,11 @@
   }
 
   .logout-btn {
-    width: 100%;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .user-email {
+    max-width: 100px;
   }
 }

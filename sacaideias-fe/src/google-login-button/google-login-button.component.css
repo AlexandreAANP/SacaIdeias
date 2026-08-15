@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  width: min(100%, 260px);
+}
+
+.google-button-target {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+}
+
+.status {
+  margin: 14px 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+  text-align: center;
+}

@@ -1,15 +1,27 @@
 <div class="view-container">
-  <div class="header-actions">
-    <button (click)="toggleMode()" class="toggle-btn">
-      {{ isMarkdownMode ? 'Switch to Normal Text' : 'Switch to Markdown Preview' }}
-    </button>
-    <button (click)="onBack()" class="back-btn">Back to Form</button>
-  </div>
+  
 
   <div class="content-box">
+    <div class="header-actions">
+    <button type="button" (click)="onBack()" class="back-btn">
+      <span aria-hidden="true">&#9998;</span>
+      Write a new idea
+    </button>
+    <button type="button" (click)="requestDelete()" class="delete-btn">
+      <span aria-hidden="true">&#128465;</span>
+      Delete idea
+    </button>
+  </div>
     <section class="idea-section title-section">
       <div class="field-label">Title</div>
-      <h2 class="idea-title">{{ ideiaContent().title || 'Untitled idea' }}</h2>
+      <div class="title-row">
+        <h2 class="idea-title">{{ ideiaContent().title || 'Untitled idea' }}</h2>
+        <div class="idea-tags" aria-label="Idea tags">
+          @for (tag of ideiaContent().tags; track tag; let index = $index) {
+            <span class="idea-badge tag-badge" [class]="'tag-color-' + (index % 3)">{{ tag }}</span>
+          }
+        </div>
+      </div>
     </section>
 
     <section class="idea-section original-section">
@@ -20,13 +32,7 @@
     <section class="idea-section content-section">
       <div class="field-label">Content</div>
 
-      <!-- Render generated content as raw text -->
-      <div *ngIf="!isMarkdownMode" class="normal-text">
-        <pre>{{ ideiaContent().content }}</pre>
-      </div>
-
-      <!-- Render generated content as markdown HTML -->
-      <div *ngIf="isMarkdownMode" class="markdown-preview" [innerHTML]="renderedMarkdown"></div>
+      <div class="markdown-preview" [innerHTML]="renderedMarkdown"></div>
     </section>
 
     <section class="idea-section chat-section">
@@ -61,5 +67,10 @@
         </button>
       </form>
     </section>
+
+  </div>
+
+  <div class="delete-action">
+    
   </div>
 </div>

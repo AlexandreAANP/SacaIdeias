@@ -61,7 +61,8 @@ textarea {
   line-height: 1.6;
   border: 1px solid #ced8e3;
   border-radius: 16px;
-  resize: vertical;
+  resize: none;
+  overflow-y: hidden;
   box-sizing: border-box;
   margin: 0;
   background: rgba(255, 255, 255, 0.92);
@@ -80,9 +81,54 @@ textarea:focus {
   box-shadow: 0 0 0 4px rgba(109, 142, 207, 0.14);
 }
 
+.detail-suggestions {
+  display: grid;
+  gap: 8px;
+}
+
+.detail-label {
+  color: #5f6b7a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.detail-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-btn {
+  border: 1px solid #cfd8e3;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: #ffffff;
+  color: #1f4f8f;
+  box-shadow: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.detail-btn:hover {
+  background: #eef6ff;
+  box-shadow: none;
+  filter: none;
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
+}
+
+.form-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-writing-icon {
+  font-size: 1.05em;
+  line-height: 1;
 }
 
 button {

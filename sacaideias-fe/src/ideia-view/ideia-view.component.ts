@@ -27,22 +27,23 @@ export class IdeiaViewComponent {
     originalIdeia: '',
     title: '',
     content: '',
-    conversationId: ''
+    conversationId: '',
+    tags: []
   });
   readonly closeView = output<void>();
+  readonly deleteRequested = output<IdeiaImproved>();
 
-  isMarkdownMode: boolean = true;
   userMessage: string = '';
   isSending: boolean = false;
   chatMessages: ChatMessage[] = [];
   conversationId: string = '';
 
-  toggleMode() {
-    this.isMarkdownMode = !this.isMarkdownMode;
-  }
-
   onBack() {
     this.closeView.emit();
+  }
+
+  requestDelete(): void {
+    this.deleteRequested.emit(this.ideiaContent());
   }
 
   async sendMessage() {

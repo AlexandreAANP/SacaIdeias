@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, output, Output } from '@angular/core';
+import { Component, ElementRef, inject, output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AIService } from '../core/services/ai.service';
@@ -13,10 +13,34 @@ import { IdeiaImproved } from '../core/models/ideia-response.model';
 })
 export class IdeiaComponent {
   private readonly aiService = inject(AIService);
-  
+  @ViewChild('ideiaTextarea') private ideiaTextarea?: ElementRef<HTMLTextAreaElement>;
+
+  readonly detailSuggestions = [
+    { label: 'Location', text: 'Location: [insert location]' },
+    { label: 'Maximum budget', text: 'Maximum budget: [insert budget]' },
+    { label: 'Target audience', text: 'Target audience: [insert audience]' },
+    { label: 'Timeline', text: 'Timeline: [insert timeframe]' },
+  ];
+
   ideiaText: string = '';
   
   readonly ideiaSubmitted = output<IdeiaImproved>();
+
+  addDetail(detail: string): void {
+    this.ideiaText = this.ideiaText.trim()
+      ? `${this.ideiaText.trim()}\n${detail}`
+      : detail;
+    queueMicrotask(() => this.resizeTextarea());
+  }
+
+  resizeTextarea(textarea = this.ideiaTextarea?.nativeElement): void {
+    if (!textarea) {
+      return;
+    }
+
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
 
   async onSubmit() {
     if (this.ideiaText.trim()) {
@@ -26,10 +50,12 @@ export class IdeiaComponent {
         originalIdeia: this.ideiaText,
         title: result.title,
         content: result.content,
+        tags: result.tags,
         conversationId: result.conversationId
       };
       this.ideiaSubmitted.emit(improvedIdeia);
       this.ideiaText = '';
+      queueMicrotask(() => this.resizeTextarea());
     }
   }
 }

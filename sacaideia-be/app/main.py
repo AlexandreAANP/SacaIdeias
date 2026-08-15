@@ -1,9 +1,9 @@
 import os
-from typing import Annotated
+from typing import Annotated, Literal
 
 import jwt
 from dotenv import load_dotenv
-from fastapi import Cookie, Depends, FastAPI, HTTPException, status
+from fastapi import Cookie, Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -77,7 +77,7 @@ async def health() -> dict[str, str]:
 async def saca_ideia(
     payload: SacaIdeiaRequest,
     current_user: Annotated[dict[str, object], Depends(require_authenticated_user)],
-) -> dict[str, str]:
+) -> dict[str, object]:
     response = gemini_service.start_conversation(payload.ideia)
     conversation_service.create_conversation(
         response["conversationId"],
@@ -115,9 +115,38 @@ async def saca_ideia_chat(
 @app.get("/api/v1/conversations")
 async def get_conversations(
     current_user: Annotated[dict[str, object], Depends(require_authenticated_user)],
+    offset: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=100)] = 3,
+    order_by: Annotated[Literal["created_at", "updated_at"], Query()] = "updated_at",
+    order_direction: Annotated[Literal["asc", "desc"], Query()] = "desc",
 ) -> dict[str, object]:
     user_email = str(current_user.get("email", current_user.get("sub", "")))
-    return {"conversations": conversation_service.get_user_conversations(user_email)}
+    conversations = conversation_service.get_user_conversations(
+        user_email,
+        order_by=order_by,
+        order_direction=order_direction,
+    )
+    page = conversations[offset : offset + limit]
+
+    return {
+        "conversations": page,
+        "has_more": offset + len(page) < len(conversations),
+    }
+
+
+@app.delete("/api/v1/conversations/{conversation_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_conversation(
+    conversation_id: str,
+    current_user: Annotated[dict[str, object], Depends(require_authenticated_user)],
+) -> None:
+    user_email = str(current_user.get("email", current_user.get("sub", "")))
+    deleted = conversation_service.delete_user_conversation(conversation_id, user_email)
+
+    if not deleted:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Conversation was not found",
+        )
 
 
 @app.post("/api/v1/auth/google")

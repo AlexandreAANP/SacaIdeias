@@ -1,0 +1,14 @@
+<div class="modal-backdrop" (click)="cancelled.emit()">
+  <dialog class="modal-panel" aria-labelledby="deleteModalTitle" open (click)="$event.stopPropagation()">
+    <p class="eyebrow">Delete idea</p>
+    <h2 id="deleteModalTitle">Delete “{{ ideaTitle() }}”?</h2>
+    <p>This action permanently removes the saved idea and its conversation history.</p>
+
+    <div class="modal-actions">
+      <button type="button" class="cancel-btn" [disabled]="isDeleting()" (click)="cancelled.emit()">Cancel</button>
+      <button type="button" class="delete-btn" [disabled]="isDeleting()" (click)="confirmed.emit()">
+        {{ isDeleting() ? 'Deleting...' : 'Delete idea' }}
+      </button>
+    </div>
+  </dialog>
+</div>

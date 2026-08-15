@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 from threading import RLock
-from typing import Any
+from typing import Any, Literal
 
 
 class ConversationService:
@@ -28,6 +28,7 @@ class ConversationService:
             "user": self._user_details(user),
             "created_at": now,
             "updated_at": now,
+            "tags": assistant_response["tags"][:3],
             "messages": [
                 self._message("user", user_message, now),
                 self._assistant_message(assistant_response, now),
@@ -69,7 +70,12 @@ class ConversationService:
             conversation["updated_at"] = now
             self._save_conversations(conversations)
 
-    def get_user_conversations(self, user_email: str) -> list[dict[str, Any]]:
+    def get_user_conversations(
+        self,
+        user_email: str,
+        order_by: Literal["created_at", "updated_at"] = "updated_at",
+        order_direction: Literal["asc", "desc"] = "desc",
+    ) -> list[dict[str, Any]]:
         """Return persisted conversations belonging to one authenticated user."""
         with self._lock:
             conversations = self._load_conversations()
@@ -80,9 +86,30 @@ class ConversationService:
             ]
             return sorted(
                 user_conversations,
-                key=lambda conversation: str(conversation.get("updated_at", "")),
-                reverse=True,
+                key=lambda conversation: str(conversation.get(order_by, "")),
+                reverse=order_direction == "desc",
             )
+
+    def delete_user_conversation(self, conversation_id: str, user_email: str) -> bool:
+        """Delete a conversation only when it belongs to the authenticated user."""
+        with self._lock:
+            conversations = self._load_conversations()
+            conversation = next(
+                (item for item in conversations if item.get("id") == conversation_id),
+                None,
+            )
+
+            if conversation is None:
+                return False
+
+            owner_email = str(conversation.get("user", {}).get("email", ""))
+            if owner_email != user_email:
+                return False
+
+            self._save_conversations(
+                [item for item in conversations if item.get("id") != conversation_id]
+            )
+            return True
 
     def get_gemini_history(
         self, conversation_id: str, user_email: str

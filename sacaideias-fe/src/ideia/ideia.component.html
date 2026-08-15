@@ -8,15 +8,31 @@
   <form (submit)="onSubmit()" class="idea-form">
     <label for="ideaText" class="sr-only">Idea description</label>
     <textarea
+      #ideiaTextarea
       id="ideaText"
       [(ngModel)]="ideiaText"
+      (input)="resizeTextarea()"
       name="ideia"
       placeholder="Type your brilliant idea here..."
       rows="7">
     </textarea>
 
+    <div class="detail-suggestions" aria-label="Add optional idea details">
+      <span class="detail-label">Add details</span>
+      <div class="detail-buttons">
+        @for (suggestion of detailSuggestions; track suggestion.label) {
+          <button type="button" class="detail-btn" (click)="addDetail(suggestion.text)">
+            + {{ suggestion.label }}
+          </button>
+        }
+      </div>
+    </div>
+
     <div class="form-actions">
-      <button type="submit">Generate idea</button>
+      <button type="submit">
+        <span class="ai-writing-icon" aria-hidden="true">&#10024;</span>
+        <span>Generate idea</span>
+      </button>
     </div>
   </form>
 </div>

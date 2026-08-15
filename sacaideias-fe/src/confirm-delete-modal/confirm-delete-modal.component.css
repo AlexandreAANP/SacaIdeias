@@ -1,0 +1,102 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(18, 32, 51, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  width: min(90%, 420px);
+  box-sizing: border-box;
+  border: 1px solid #dbe3ee;
+  border-radius: 20px;
+  padding: 24px;
+  background: #ffffff;
+  color: #122033;
+  box-shadow: 0 24px 60px rgba(16, 24, 40, 0.2);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #b42318;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+p:not(.eyebrow) {
+  margin: 12px 0 0;
+  color: #5f6b7a;
+  line-height: 1.55;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+button {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  border: 1px solid #d0d7de;
+  background: #ffffff;
+  color: #122033;
+}
+
+.delete-btn {
+  border: 1px solid #b42318;
+  background: #c53030;
+  color: #ffffff;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 20px;
+    place-items: center;
+  }
+
+  .modal-panel {
+    width: min(90%, 420px);
+    max-height: calc(100dvh - 40px);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  button {
+    min-height: 42px;
+    padding: 9px 10px;
+  }
+}

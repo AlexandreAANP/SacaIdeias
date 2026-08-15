@@ -58,7 +58,8 @@ class GeminiService:
         return self._parse_response(response.text, conversation_id)
 
     def _parse_response(self, response_text: str, conversation_id: str) -> dict[str, str]:
-        data = json.loads(response_text)
+        print(response_text)
+        data = json.loads(response_text, strict=False)
         data["conversationId"] = conversation_id
         return data
     

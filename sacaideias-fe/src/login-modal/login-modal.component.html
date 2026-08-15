@@ -9,16 +9,8 @@
       <h2 id="loginModalTitle">Login to continue</h2>
 
       <div class="google-login-slot">
-        <div #googleLoginButton></div>
+        <app-google-login-button (loginCompleted)="close()" />
       </div>
-
-      @if (!isGoogleReady) {
-        <p class="status">Loading Google sign-in...</p>
-      }
-
-      @if (isLoggingIn) {
-        <p class="status">Signing you in...</p>
-      }
     </dialog>
   </div>
 }

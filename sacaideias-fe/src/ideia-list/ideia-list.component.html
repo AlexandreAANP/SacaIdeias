@@ -1,23 +1,74 @@
 <aside class="sidebar">
+  <button
+    type="button"
+    class="mobile-list-toggle"
+    [class.is-expanded]="isExpanded()"
+    [attr.aria-expanded]="isExpanded()"
+    (click)="toggleList()"
+  >
+    Saved Ideas
+  </button>
+
+  <div class="sidebar-content" [class.mobile-collapsed]="!isExpanded()">
   <div class="sidebar-header">
     <p class="eyebrow">Library</p>
     <h3>Saved Ideas</h3>
     <p class="sidebar-description">Pick a saved idea to revisit the generated analysis and continue the conversation.</p>
+    <label class="sort-control" for="ideaSort">
+      <span>Sort by</span>
+      <select
+        id="ideaSort"
+        [value]="sortBy()"
+        [disabled]="isLoading()"
+        (change)="changeSort($any($event.target).value)"
+      >
+        <option value="updated_at">Last updated</option>
+        <option value="created_at">Last created</option>
+      </select>
+    </label>
   </div>
 
   <p *ngIf="ideias().length === 0" class="empty-text">No ideas submitted yet.</p>
 
   <ul *ngIf="ideias().length > 0" class="idea-list">
     <li *ngFor="let ideia of ideias()" class="idea-item">
-      <button type="button" class="idea-card" (click)="selectIdea(ideia)">
+      <div class="idea-card">
+      <button type="button" class="idea-card-content" (click)="selectIdea(ideia)">
         <div class="idea-card-header">
-          <span class="idea-badge">Idea</span>
+          <div class="idea-badges">
+            @for (tag of ideia.tags; track tag; let index = $index) {
+              <span class="idea-badge tag-badge" [class]="'tag-color-' + (index % 3)">{{ tag }}</span>
+            }
+          </div>
           <span class="idea-chevron">›</span>
         </div>
 
         <h4 class="idea-title">{{ (ideia.title || 'Untitled idea') | slice:0:40 }}...</h4>
         <p class="idea-preview">{{ (ideia.originalIdeia || '') | slice:0:20 }}...</p>
+        @if (ideia.createdAt) {
+          <time class="idea-created-at" [attr.datetime]="ideia.createdAt">
+            Created {{ ideia.createdAt | date:'mediumDate' }}
+          </time>
+        }
       </button>
+      <button type="button" class="delete-idea-btn" (click)="requestDelete(ideia)">
+        <span aria-hidden="true">&#128465;</span>
+        Delete
+      </button>
+      </div>
     </li>
   </ul>
+
+  @if (hasMore()) {
+    <button
+      type="button"
+      class="load-more-btn"
+      [disabled]="isLoading()"
+      (click)="loadMoreIdeas()"
+      aria-label="Load more ideas"
+    >
+      ...
+    </button>
+  }
+  </div>
 </aside>
